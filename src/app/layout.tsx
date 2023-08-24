@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Comic_Neue } from "next/font/google";
-
 const comicNeue = Comic_Neue({
   subsets: ["latin"],
   display: "swap",
