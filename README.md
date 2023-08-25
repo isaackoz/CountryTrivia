@@ -46,6 +46,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ## Making changes
-To modify and edit the project, first ensure you have the latest version by running `git pull`. Next, make any changes you would like. Then stage and commit your files and finally push them.
+To modify and edit the project, first, ensure you have the latest version by running `git pull`.
 
-In order for changes to succesfully be deployed, they must pass the status checks. The status checks will ensure that the changes are proper and don't contain any immediate issues.
+Next, [create a feature branch](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) to make your changes. Once your changes are done, push your branch to github and then create a pull request. Once you create a pull request, it will run some status checks. If the checks pass, you will be able to merge it to the main branch. 
+
+You can alternatively modify the `git checkout dev` branch. 
+
