@@ -17,7 +17,7 @@ const Header = () => {
 				height={500}
 				className=""
 			/>
-			<h1 className="sr-only">Country Trivia</h1>
+			<h1 className="sr-only">Country Trivia Game</h1>
 		</motion.div>
 	);
 };
