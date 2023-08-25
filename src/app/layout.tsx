@@ -9,7 +9,7 @@ const comicNeue = Comic_Neue({
 });
 
 export const metadata: Metadata = {
-	title: 'Country Trivia',
+	title: 'Country Trivia | Guess the country!',
 	description: 'Guess the country!',
 };
 
