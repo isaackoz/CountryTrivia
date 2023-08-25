@@ -1,0 +1,22 @@
+name: CI / CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to the repo
+        uses: actions/checkout@v2
+      - name: Install dep
+        run: npm install
+      - name: Check linting
+        run: npm run lint
+      - name: Check build
+        run: npm run build
+  
