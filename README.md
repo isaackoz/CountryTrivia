@@ -1,34 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Country Trivia
 
-## Getting Started
+CS 362 Group Project
 
-First, run the development server:
+
+## Description
+This is a dynamically generated trivia game using [restcountries api](https://restcountries.com/). Each question will have 4 random countries for the user to guess from. The types of questions are TBD, but we will start with flags. Each question will have a ~5 second timer. If the user runs out of time or guesses the question wrong, they will get a strike. 3 strikes and it's game over.
+
+## Languages used
+Languages used can be found under "Languages" on the github homepage. Languages used are, but not limited to,
+- Typescript
+- Javascript
+- CSS via TailwindCSS
+
+## Environment/IDE
+No specific environment is required, however [visual studio code](https://code.visualstudio.com/) is recommended and will be used by our group.
+
+In addition to VSCode, we will be using development tools such as, but not limited to,
+- Github Actions for CI/CD
+- Prettier for standard code formatting
+- ESLint to find potential bugs and improve code quality
+
+## Demo/Final Product
+Either follow the build instructions below to demo in a local environment or go to https://www.countrytrivia.vercel.app/.
+
+
+## Build/Setup Instructions
+
+First, [clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) into your local environment.
+
+Next, ensure [Node LTS](https://nodejs.org/en/download) is installed. 
+
+Next, inside of cloned repository, run 
+
+```bash
+npm install
+```
+
+Then, run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Making changes
+To modify and edit the project, first ensure you have the latest version by running `git pull`. Next, make any changes you would like. Then stage and commit your files and finally push them.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In order for changes to succesfully be deployed, they must pass the status checks. The status checks will ensure that the changes are proper and don't contain any immediate issues.
