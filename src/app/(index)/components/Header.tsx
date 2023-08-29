@@ -8,7 +8,7 @@ const Header = () => {
 		<motion.div
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ duration: 2, delay: 2 }}
+			transition={{ duration: 2, delay: 0 }}
 		>
 			<Image
 				src="/c4.png"
