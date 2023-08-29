@@ -20,7 +20,7 @@ const draw: Variants = {
 				bounce: 0,
 			},
 			fillOpacity: {
-				delay: 3,
+				delay: 1,
 				duration: 1,
 			},
 		},
@@ -51,7 +51,7 @@ const PlayButton = () => {
 					textAnchor={'middle'}
 					className="text-xl font-bold"
 					transition={{
-						delay: 3.5,
+						delay: 1.5,
 					}}
 					variants={{
 						hidden: {
