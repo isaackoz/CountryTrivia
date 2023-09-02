@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Comic_Neue } from 'next/font/google';
+import Background from './(index)/components/Background';
 const comicNeue = Comic_Neue({
 	subsets: ['latin'],
 	display: 'swap',
@@ -20,7 +21,10 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en" className={comicNeue.variable}>
-			<body>{children}</body>
+			<body className="relative">
+				<Background />
+				{children}
+			</body>
 		</html>
 	);
 }
