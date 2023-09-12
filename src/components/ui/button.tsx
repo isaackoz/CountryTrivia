@@ -99,7 +99,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 							style={{
 								background: `hsl(${(
 									parseInt(hsl) + 5
-								).toString()}deg, 100%, 47%)`,
+								).toString()}deg, 60%, 40%)`,
 							}}
 						>
 							{props.children}
