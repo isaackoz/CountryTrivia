@@ -17,7 +17,8 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['var(--font-comic-neue)'],
+				sans: ['var(--font-comic-neue)', 'sans-serif'],
+				heading: ['var(--font-luckiest-guy)', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
