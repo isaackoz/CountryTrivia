@@ -10,7 +10,8 @@ export default function CapitalPage() {
 	return (
 		<div>
 			<QuestionWrapper modeTitle={'Guess the capital'}>
-				Hello
+				<p>What is the capital of...</p>
+
 				<BackButton />
 			</QuestionWrapper>
 		</div>
