@@ -1,15 +1,15 @@
 import { Metadata } from 'next';
 import QuestionWrapper from '../components/common/QuestionWrapper';
 export const metadata: Metadata = {
-	title: 'Guess the capital | CountryBase',
-	description: 'Guess the capital!',
+	title: 'General Trivia | CountryBase',
+	description: 'Test your trivia skills!',
 };
 
 export default function CapitalPage() {
 	return (
 		<div>
-			<QuestionWrapper modeTitle={'Guess the capital'}>
-				<p>What is the capital of...</p>
+			<QuestionWrapper modeTitle={'General Trivia'}>
+				<p></p>
 			</QuestionWrapper>
 		</div>
 	);

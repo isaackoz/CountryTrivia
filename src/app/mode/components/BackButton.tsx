@@ -4,7 +4,7 @@ function BackButton() {
 	return (
 		<Link
 			href="/mode"
-			className="w-48 h-15 bg-blue-500 rounded-lg p-4 text-xl font-bold"
+			className="w-48 h-15 bg-blue-500 rounded-lg p-4 text-xl font-bold block"
 		>
 			&larr; Back
 		</Link>
