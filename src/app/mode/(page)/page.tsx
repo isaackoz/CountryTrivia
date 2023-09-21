@@ -16,16 +16,25 @@ export default function Home() {
 					src="/highlow.png"
 					title="Population Higher or Lower"
 					subtitle="Guess the population of a country"
+					href="/mode/highlow"
 				/>
 				<ModeButton
 					src="/cap.png"
 					title="Guess The Capital"
 					subtitle="Guess the capital of a country"
+					href="/mode/capital"
 				/>
 				<ModeButton
 					src="/general_trivia.png"
 					title="General Trivia"
 					subtitle="Guess general trivia about a country"
+					href="/mode/general"
+				/>
+				<ModeButton
+					src="/un_flag.png"
+					title="Guess The Flag"
+					subtitle="Guess flag of a country"
+					href="/mode/flag"
 				/>
 				{/* <ModeButton>{`Guess the Flag`}</ModeButton>
 				<ModeButton>{`Guess the Capital`}</ModeButton>
