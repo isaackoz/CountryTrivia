@@ -7,6 +7,8 @@ export const metadata: Metadata = {
 
 export default function CapitalPage() {
 	return (
-		<QuestionWrapper modeTitle={'Guess the capital'}>Hello</QuestionWrapper>
+		<QuestionWrapper modeTitle={'Guess the capital'}>
+			<p>What is the capital of...</p>
+		</QuestionWrapper>
 	);
 }
