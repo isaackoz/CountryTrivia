@@ -9,7 +9,7 @@ const QuestionWrapper = ({
 }) => {
 	return (
 		<div className="w-[700px] mx-auto text-center h-screen flex flex-col items-center justify-center p-4">
-			<div className="w-full h-[800px] border-8 border-black rounded-xl bg-gray-100/80 p-4 flex flex-col">
+			<div className="w-full h-[800px] border-8 border-black rounded-xl bg-gray-100/80 p-4 flex flex-col relative">
 				<h1 className="font-heading text-4xl">{modeTitle}</h1>
 				<div className="h-full w-full">{children}</div>
 			</div>
