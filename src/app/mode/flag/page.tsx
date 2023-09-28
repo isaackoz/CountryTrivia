@@ -1,16 +1,17 @@
-import { Metadata } from 'next';
+'use client';
+
 import QuestionWrapper from '../components/common/QuestionWrapper';
 import FlagGame from './(components)/FlagGame';
-export const metadata: Metadata = {
-	title: 'Guess the Flag | CountryBase',
-	description: 'Guess the flag!',
-};
+import { useState } from 'react';
 
-export default function CapitalPage() {
+export type bgColorProps = 'gray' | 'red' | 'green';
+
+export default function FlagPage() {
+	const [bgColor, setBgColor] = useState<bgColorProps>('gray');
 	return (
 		<div>
-			<QuestionWrapper modeTitle={'Guess the flag'}>
-				<FlagGame />
+			<QuestionWrapper modeTitle={'Guess the flag'} bgColor={bgColor}>
+				<FlagGame setBgColor={setBgColor} />
 			</QuestionWrapper>
 		</div>
 	);

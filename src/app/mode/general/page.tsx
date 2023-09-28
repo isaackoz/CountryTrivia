@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function CapitalPage() {
 	return (
 		<div>
-			<QuestionWrapper modeTitle={'General Trivia'}>
+			<QuestionWrapper modeTitle={'General Trivia'} bgColor={'gray'}>
 				<p></p>
 			</QuestionWrapper>
 		</div>
