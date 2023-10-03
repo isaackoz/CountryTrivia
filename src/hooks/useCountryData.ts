@@ -13,8 +13,13 @@ const fetcher = (url: string) =>
 	fetch(url)
 		.then((res) => res.json())
 		.then((data) => {
-			const length = data.length as number;
-			const countryData = data.map((country: any) => {
+			const validCountries = data.filter((country:any) =>
+				country.name.common &&
+				country.capital[0] &&
+				country.flags.svg &&
+				country.population
+			);
+			const countryData = validCountries.map((country: any) => {
 				return {
 					name: country.name.common as string,
 					capital: country.capital[0] as string,
@@ -22,9 +27,9 @@ const fetcher = (url: string) =>
 					population: country.population as number,
 				};
 			}) as CountryData[];
-
+			console.log(countryData);
 			return {
-				length,
+				length: countryData.length,
 				countryData,
 			};
 		});

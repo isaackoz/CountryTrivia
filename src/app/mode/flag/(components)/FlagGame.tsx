@@ -16,6 +16,9 @@ const FlagGame = ({
 	const [correctAnswer, setCorrectAnswer] = useState(0);
 	const [response, setResponse] = useState('');
 	const [isVisible, setVisibility] = useState(false);
+	const [answerLock, setAnswerLock] = useState(false);
+	const [score, setScore] = useState(0);
+	const [nextBtnClicked, setNextBtnClicked] = useState(false);
 
 	useEffect(() => {
 		if (!isLoading && data?.length) {
@@ -39,8 +42,14 @@ const FlagGame = ({
 
 	const refreshQuestion = () => {
 		if (!isLoading && data?.length) {
+			// Locks next button to prevent double click while async loading
+			setNextBtnClicked(true);
+
 			// Reset the response message
 			setResponse('');
+
+			// Reset background color
+			setBgColor('gray');
 
 			// Generate new random numbers
 			const uniqueRandoms = new Set();
@@ -49,20 +58,30 @@ const FlagGame = ({
 				uniqueRandoms.add(Math.floor(Math.random() * data.length));
 			}
 
-			setRandomNums(Array.from(uniqueRandoms as Set<number>));
+			const newRandomNums = Array.from(uniqueRandoms as Set<number>);
+			setRandomNums(newRandomNums);
 
 			setVisibility(false); // Make next button invisible
 
 			// Set a new correct answer
 			const randNum = Math.floor(Math.random() * 4);
-			setCorrectAnswer(randomNums[randNum]);
+			setCorrectAnswer(newRandomNums[randNum]);
+
+			// Reset answer lock
+			setAnswerLock(false);
+
+			// Unlocks next button
+			setNextBtnClicked(false);
 		}
 	};
 
 	const handleGuess = (num: number) => {
+		if (answerLock) return;
+		setAnswerLock(true);
 		if (num === correctAnswer) {
 			setResponse('Correct!');
 			setBgColor('green');
+			setScore(score + 1);
 		} else {
 			setResponse('Wrong!');
 			setBgColor('red');
@@ -89,9 +108,9 @@ const FlagGame = ({
 							'/error.jpg'
 						}
 						alt={'Flag 1 of 4'}
-						width={200}
-						height={200}
-						className="w-full h-full object-contain"
+						width={120}
+						height={100}
+						className="w-fit h-fit object-fill border-8 rounded-lg border-green-600"
 					/>
 				</div>
 				<div
@@ -140,18 +159,22 @@ const FlagGame = ({
 					/>
 				</div>
 			</div>
-			<div
+			{response}
+			<div className="absolute bottom-2 left-2 font-heading text-5xl">
+				{`Score: ${score}`}
+			</div>
+			<button
+				disabled={isLoading || nextBtnClicked}
 				className={clsx(
 					`text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 justify-self-end hover:cursor-pointer absolute bottom-2 justify end-2`,
 					isVisible ? 'visible' : 'invisible'
 				)}
 				onClick={() => {
-					setBgColor('gray');
 					refreshQuestion();
 				}}
 			>
 				Next Question
-			</div>
+			</button>
 		</div>
 	);
 };
