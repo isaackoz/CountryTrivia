@@ -4,6 +4,7 @@ import useCountryData from '@/hooks/useCountryData';
 import { useEffect, useState } from 'react';
 import { bgColorProps } from '../page';
 import clsx from 'clsx';
+import { CheckCircle2, CheckIcon, XCircle } from 'lucide-react';
 
 const FlagGame = ({
 	setBgColor,
@@ -14,7 +15,8 @@ const FlagGame = ({
 
 	const [randomNums, setRandomNums] = useState([0, 1, 2, 3]);
 	const [correctAnswer, setCorrectAnswer] = useState(0);
-	const [response, setResponse] = useState('');
+	const [response, setResponse] = useState<boolean | null>(null);
+	const [guess, setGuess] = useState<number | null>(null);
 	const [isVisible, setVisibility] = useState(false);
 	const [answerLock, setAnswerLock] = useState(false);
 	const [score, setScore] = useState(0);
@@ -46,7 +48,8 @@ const FlagGame = ({
 			setNextBtnClicked(true);
 
 			// Reset the response message
-			setResponse('');
+			setResponse(null);
+			setGuess(null);
 
 			// Reset background color
 			setBgColor('gray');
@@ -76,14 +79,15 @@ const FlagGame = ({
 	};
 
 	const handleGuess = (num: number) => {
+		setGuess(num);
 		if (answerLock) return;
 		setAnswerLock(true);
 		if (num === correctAnswer) {
-			setResponse('Correct!');
+			setResponse(true);
 			setBgColor('green');
 			setScore(score + 1);
 		} else {
-			setResponse('Wrong!');
+			setResponse(false);
 			setBgColor('red');
 		}
 		setVisibility(true); // Make next button visible
@@ -98,66 +102,18 @@ const FlagGame = ({
 				{data?.countryData[correctAnswer].name || 'Error'}?
 			</div>
 			<div className="grid grid-cols-2 grid-rows-2 w-full gap-12 h-96 mt-4">
-				<div
-					onClick={() => handleGuess(randomNums[0])}
-					className="hover:cursor-pointer"
-				>
-					<Image
-						src={
-							data?.countryData[randomNums[0]].flag ||
-							'/error.jpg'
-						}
-						alt={'Flag 1 of 4'}
-						width={120}
-						height={100}
-						className="w-fit h-fit object-fill border-8 rounded-lg border-green-600"
+				{randomNums.map((num, index) => (
+					<FlagSection
+						key={index}
+						handleGuess={handleGuess}
+						flag={data?.countryData[num].flag || 'Error'}
+						altText={data?.countryData[num].name || 'Error'}
+						num={num}
+						correctAnswer={correctAnswer}
+						response={response}
+						guess={guess}
 					/>
-				</div>
-				<div
-					onClick={() => handleGuess(randomNums[1])}
-					className="hover:cursor-pointer"
-				>
-					<Image
-						src={
-							data?.countryData[randomNums[1]].flag ||
-							'/error.jpg'
-						}
-						alt={'Flag 2 of 4'}
-						width={120}
-						height={100}
-						className="w-full h-full object-contain"
-					/>
-				</div>
-				<div
-					onClick={() => handleGuess(randomNums[2])}
-					className="hover:cursor-pointer"
-				>
-					<Image
-						src={
-							data?.countryData[randomNums[2]].flag ||
-							'/error.jpg'
-						}
-						alt={'Flag 3 of 4'}
-						width={120}
-						height={100}
-						className="w-full h-full object-contain"
-					/>
-				</div>
-				<div
-					onClick={() => handleGuess(randomNums[3])}
-					className="hover:cursor-pointer"
-				>
-					<Image
-						src={
-							data?.countryData[randomNums[3]].flag ||
-							'/error.jpg'
-						}
-						alt={'Flag 4 of 4'}
-						width={120}
-						height={100}
-						className="w-full h-full object-contain"
-					/>
-				</div>
+				))}
 			</div>
 			{response}
 			<div className="absolute bottom-2 left-2 font-heading text-5xl">
@@ -180,3 +136,51 @@ const FlagGame = ({
 };
 
 export default FlagGame;
+
+const FlagSection = ({
+	handleGuess,
+	flag,
+	altText,
+	num,
+	correctAnswer,
+	response,
+	guess,
+}: {
+	handleGuess: (index: number) => void;
+	flag: string;
+	altText: string;
+	num: number;
+	correctAnswer: number;
+	response: boolean | null;
+	guess: number | null;
+}) => (
+	<div
+		onClick={() => handleGuess(num)}
+		className="hover:cursor-pointer h-full w-full relative"
+	>
+		{guess === null ? null : guess === correctAnswer && guess === num ? (
+			<div className="absolute text-black z-20 -left-4 -top-4">
+				<CheckCircle2 size={48} className="fill-green-500 stroke-2" />
+			</div>
+		) : (
+			guess === num && (
+				<div className="absolute text-black z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-80">
+					<XCircle size={128} className="fill-red-500 stroke-2" />
+				</div>
+			)
+		)}
+
+		<Image
+			src={flag}
+			alt={altText}
+			fill
+			className={clsx(
+				`object-contain rounded-lg transition`,
+				guess !== null &&
+					(num === correctAnswer
+						? 'scale-105'
+						: 'filter grayscale scale-75')
+			)}
+		/>
+	</div>
+);
