@@ -7,7 +7,7 @@ import Background from './(index)/components/Background';
 const comicNeue = Comic_Neue({
 	subsets: ['latin'],
 	display: 'swap',
-	weight: ['400'],
+	weight: ['400', '700', '300'],
 	variable: '--font-comic-neue',
 });
 
