@@ -1,6 +1,7 @@
 'use client';
 
 import QuestionWrapper from '../components/common/QuestionWrapper';
+import SettingsDropdown from '../components/common/SettingsDropdown';
 import FlagGame from './(components)/FlagGame';
 import { useState } from 'react';
 

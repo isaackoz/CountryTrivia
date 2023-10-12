@@ -1,5 +1,6 @@
 import BackButton from '../BackButton';
 import clsx from 'clsx';
+import SettingsDropdown from './SettingsDropdown';
 const QuestionWrapper = ({
 	children,
 	modeTitle,
@@ -21,6 +22,7 @@ const QuestionWrapper = ({
 			>
 				<h1 className="font-heading text-4xl">{modeTitle}</h1>
 				<div className="h-full w-full">{children}</div>
+				<SettingsDropdown />
 			</div>
 			<div className="self-start mt-5">
 				<BackButton />
