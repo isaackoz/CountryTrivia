@@ -97,9 +97,21 @@ const CapitalGame = ({
 	if (error) return <div>Error: {error.message}</div>;
 
 	return (
-		<div className="flex flex-col mt-10">
+		<div className="flex flex-col mt-1">
 			<div className="text-4xl font-extrabold text-black">
 				{data?.countryData[correctAnswer].name || 'Error'}?
+			</div>
+			<div className="self-center">
+				<Image
+					src={
+						data?.countryData[correctAnswer].flag ||
+						'Image not found'
+					}
+					alt="Flag"
+					width={200}
+					height={100}
+					className={'rounded-lg object-contain'}
+				/>
 			</div>
 			<div className="grid grid-cols-2 grid-rows-2 w-full gap-12 h-96 mt-4">
 				{randomNums.map((num, index) => (
@@ -156,10 +168,13 @@ const CapitalSection = ({
 }) => (
 	<button
 		onClick={() => handleGuess(num)}
-		className={clsx("hover:cursor-pointer h-full w-full relative",
-		'bg-blue-400 rounded-xl shadow-xl',
-		guess !== null &&
-		(num === correctAnswer ? 'scale-105' : 'filter grayscale scale-75')
+		className={clsx(
+			'hover:cursor-pointer h-full w-full relative',
+			'bg-blue-400 rounded-xl shadow-xl text-4xl',
+			guess !== null &&
+				(num === correctAnswer
+					? 'scale-105'
+					: 'filter grayscale scale-75')
 		)}
 	>
 		{guess === null ? null : guess === correctAnswer && guess === num ? (
@@ -173,6 +188,6 @@ const CapitalSection = ({
 				</div>
 			)
 		)}
-        {capital}
+		{capital}
 	</button>
 );
