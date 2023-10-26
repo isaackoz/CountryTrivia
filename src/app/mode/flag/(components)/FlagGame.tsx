@@ -20,6 +20,7 @@ const FlagGame = ({
 	const [isVisible, setVisibility] = useState(false);
 	const [answerLock, setAnswerLock] = useState(false);
 	const [score, setScore] = useState(0);
+	const [lives, setLives] = useState(3);
 	const [nextBtnClicked, setNextBtnClicked] = useState(false);
 
 	useEffect(() => {
@@ -89,6 +90,7 @@ const FlagGame = ({
 		} else {
 			setResponse(false);
 			setBgColor('red');
+			setLives(lives - 1);
 		}
 		setVisibility(true); // Make next button visible
 	};
@@ -116,21 +118,26 @@ const FlagGame = ({
 				))}
 			</div>
 			{response}
-			<div className="absolute bottom-2 left-2 font-heading text-5xl">
-				{`Score: ${score}`}
+			<div className="flex gap-7 mt-4 justify-between">
+				<div className="bottom-2 left-2 font-heading text-5xl">
+					{`Score: ${score}`}
+				</div>
+				<div className="bottom-2 font-heading text-5xl">
+					{`Lives: ${lives}`}
+				</div>
+				<button
+					disabled={isLoading || nextBtnClicked}
+					className={clsx(
+						`text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 justify-self-end hover:cursor-pointer justify end-2 self-end`,
+						isVisible ? 'visible' : 'invisible'
+					)}
+					onClick={() => {
+						refreshQuestion();
+					}}
+				>
+					Next Question
+				</button>
 			</div>
-			<button
-				disabled={isLoading || nextBtnClicked}
-				className={clsx(
-					`text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 justify-self-end hover:cursor-pointer absolute bottom-2 justify end-2`,
-					isVisible ? 'visible' : 'invisible'
-				)}
-				onClick={() => {
-					refreshQuestion();
-				}}
-			>
-				Next Question
-			</button>
 		</div>
 	);
 };
