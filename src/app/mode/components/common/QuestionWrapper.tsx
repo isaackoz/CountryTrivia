@@ -1,6 +1,8 @@
 import BackButton from '../BackButton';
 import clsx from 'clsx';
 import SettingsDropdown from './SettingsDropdown';
+import { useSettingsStore } from '@/store/settingsStore';
+import { useEffect } from 'react';
 const QuestionWrapper = ({
 	children,
 	modeTitle,

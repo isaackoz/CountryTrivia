@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { bgColorProps } from '../page';
 import clsx from 'clsx';
 import { CheckCircle2, CheckIcon, XCircle } from 'lucide-react';
+import EndGameCard from '../../components/common/EndGameCard';
+import Modal from 'react-modal';
 
 const CapitalGame = ({
 	setBgColor,
@@ -22,6 +24,18 @@ const CapitalGame = ({
 	const [score, setScore] = useState(0);
 	const [lives, setLives] = useState(3);
 	const [nextBtnClicked, setNextBtnClicked] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const customStyles = {
+		overlay: { backgroundColor: 'rgba(0, 0, 0, 0.6)' },
+		content: {
+			top: '50%',
+			left: '50%',
+			right: 'auto',
+			bottom: 'auto',
+			marginRight: '-50%',
+			transform: 'translate(-50%, -50%)',
+		},
+	};
 
 	useEffect(() => {
 		if (!isLoading && data?.length) {
@@ -91,6 +105,10 @@ const CapitalGame = ({
 			setResponse(false);
 			setBgColor('red');
 			setLives(lives - 1);
+			if (lives <= 0) {
+				setIsOpen(true);
+				return; // Avoid setting nextButton to visible
+			}
 		}
 		setVisibility(true); // Make next button visible
 	};
@@ -100,6 +118,14 @@ const CapitalGame = ({
 
 	return (
 		<div className="flex flex-col mt-1">
+			<Modal
+				isOpen={isOpen}
+				onRequestClose={() => setIsOpen(false)}
+				style={customStyles}
+			>
+				<EndGameCard score={score} />
+				<button onClick={() => setIsOpen(false)}>Close Modal</button>
+			</Modal>
 			<div className="text-4xl font-extrabold text-black">
 				{data?.countryData[correctAnswer].name || 'Error'}?
 			</div>
