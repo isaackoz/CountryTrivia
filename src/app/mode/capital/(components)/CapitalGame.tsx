@@ -29,6 +29,10 @@ const CapitalGame = ({
 	const { isLivesEnabled } = useSettingsStore((state) => {
 		return { isLivesEnabled: state.isLivesEnabled };
 	});
+	const { isHard } = useSettingsStore((state) => {
+		return { isHard: state.isHard };
+	});
+	const [nameEnabled, toggleName] = useState(!isHard);
 	const customStyles = {
 		overlay: { backgroundColor: 'rgba(0, 0, 0, 0.6)' },
 		content: {
@@ -61,10 +65,17 @@ const CapitalGame = ({
 		}
 	}, [randomNums, isLoading, data]);
 
+	useEffect(() => {
+		toggleName(!isHard);
+	}, [isHard]);
+
 	const refreshQuestion = () => {
 		if (!isLoading && data?.length) {
 			// Locks next button to prevent double click while async loading
 			setNextBtnClicked(true);
+
+			// Rehides Country Name is difficulty = hard
+			toggleName(!isHard);
 
 			// Reset the response message
 			setResponse(null);
@@ -101,6 +112,7 @@ const CapitalGame = ({
 		setGuess(num);
 		if (answerLock) return;
 		setAnswerLock(true);
+		toggleName(true); // Make country name visible
 		if (num === correctAnswer) {
 			setResponse(true);
 			setBgColor('green');
@@ -134,7 +146,10 @@ const CapitalGame = ({
 				<button onClick={() => setIsOpen(false)}>Close Modal</button>
 			</Modal>
 			<div className="text-4xl font-extrabold text-black">
-				{data?.countryData[correctAnswer].name || 'Error'}?
+				{nameEnabled
+					? data?.countryData[correctAnswer].name || 'Error'
+					: 'This Country'}
+				?
 			</div>
 			<div className="self-center">
 				<Image
