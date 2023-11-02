@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { CheckCircle2, CheckIcon, XCircle } from 'lucide-react';
 import EndGameCard from '../../components/common/EndGameCard';
 import Modal from 'react-modal';
+import { useSettingsStore } from '@/store/settingsStore';
 
 const CapitalGame = ({
 	setBgColor,
@@ -25,6 +26,9 @@ const CapitalGame = ({
 	const [lives, setLives] = useState(3);
 	const [nextBtnClicked, setNextBtnClicked] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const { isLivesEnabled } = useSettingsStore((state) => {
+		return { isLivesEnabled: state.isLivesEnabled };
+	});
 	const customStyles = {
 		overlay: { backgroundColor: 'rgba(0, 0, 0, 0.6)' },
 		content: {
@@ -104,7 +108,9 @@ const CapitalGame = ({
 		} else {
 			setResponse(false);
 			setBgColor('red');
-			setLives(lives - 1);
+			if (isLivesEnabled) {
+				setLives(lives - 1);
+			}
 			if (lives <= 0) {
 				setIsOpen(true);
 				return; // Avoid setting nextButton to visible
@@ -160,8 +166,14 @@ const CapitalGame = ({
 				<div className="bottom-2 left-2 font-heading text-5xl">
 					{`Score: ${score}`}
 				</div>
-				<div className="bottom-2 font-heading text-5xl">
-					{`Lives: ${lives}`}
+				<div
+					className={clsx(
+						`bottom-2 font-heading text-5xl`,
+						isLivesEnabled ? 'visible' : 'invisible',
+						lives < 0 ? 'text-red-600' : ''
+					)}
+				>
+					{lives >= 0 ? `Lives: ${lives}` : 'LOSE'}
 				</div>
 				<button
 					disabled={isLoading || nextBtnClicked}
