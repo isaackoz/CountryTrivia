@@ -1,4 +1,17 @@
+'use client';
+
+import { useSettingsStore } from '@/store/settingsStore';
+
 const SettingsDropdown = () => {
+	const { toggleDifficulty, isHard, toggleLives, isLivesEnabled } =
+		useSettingsStore((state) => {
+			return {
+				toggleDifficulty: state.toggleDifficulty,
+				isHard: state.isHard,
+				toggleLives: state.toggleLives,
+				isLivesEnabled: state.isLivesEnabled,
+			};
+		});
 	return (
 		<>
 			<input
@@ -16,14 +29,34 @@ const SettingsDropdown = () => {
 			<div className="hidden peer-checked:flex absolute -right-60  top-12 w-56 bg-gray-100/80 border-8 border-black rounded-lg font-extrabold text-xl justify-center flex-col px-4 pb-1">
 				Settings
 				<label className="relative inline-flex items-center cursor-pointer">
-					<input type="checkbox" value="" className="sr-only peer" />
+					<input
+						type="checkbox"
+						value=""
+						className="sr-only peer"
+						checked={isHard}
+						onChange={(e) =>
+							e.target.checked
+								? toggleDifficulty(true)
+								: toggleDifficulty(false)
+						}
+					/>
 					<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 					<span className="ml-3 font-medium text-gray-900 dark:text-gray-300 text-lg">
 						Hard
 					</span>
 				</label>
 				<label className="lives relative inline-flex items-center cursor-pointer">
-					<input type="checkbox" value="" className="sr-only peer" />
+					<input
+						type="checkbox"
+						value=""
+						className="sr-only peer"
+						checked={isLivesEnabled}
+						onChange={(e) =>
+							e.target.checked
+								? toggleLives(true)
+								: toggleLives(false)
+						}
+					/>
 					<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 					<span className="ml-3 font-medium text-gray-900 dark:text-gray-300 text-lg">
 						Lives
