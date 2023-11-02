@@ -8,6 +8,7 @@ import { CheckCircle2, CheckIcon, XCircle } from 'lucide-react';
 import EndGameCard from '../../components/common/EndGameCard';
 import Modal from 'react-modal';
 import { useSettingsStore } from '@/store/settingsStore';
+import Link from 'next/link';
 
 const CapitalGame = ({
 	setBgColor,
@@ -130,7 +131,25 @@ const CapitalGame = ({
 				style={customStyles}
 			>
 				<EndGameCard score={score} />
-				<button onClick={() => setIsOpen(false)}>Close Modal</button>
+				<div className="flex justify-between">
+					<Link href="/mode">
+						<button
+							onClick={() => setIsOpen(false)}
+							className="text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 hover:cursor-pointer"
+						>
+							Mode Selection
+						</button>
+					</Link>
+					<button
+						onClick={() => {
+							setIsOpen(false);
+							window.location.reload();
+						}}
+						className="text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 hover:cursor-pointer"
+					>
+						Play Again
+					</button>
+				</div>
 			</Modal>
 			<div className="text-4xl font-extrabold text-black">
 				{data?.countryData[correctAnswer].name || 'Error'}?
