@@ -128,6 +128,7 @@ const CapitalGame = ({
 				isOpen={isOpen}
 				onRequestClose={() => setIsOpen(false)}
 				style={customStyles}
+				ariaHideApp={false}
 			>
 				<EndGameCard score={score} />
 				<button onClick={() => setIsOpen(false)}>Close Modal</button>
