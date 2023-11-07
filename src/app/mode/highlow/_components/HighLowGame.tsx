@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { v4 as uuidv4 } from 'uuid';
+import BackButton from '../../components/BackButton';
 
 interface CountryData {
 	name: string;
@@ -27,6 +28,7 @@ export default function HighLowGame() {
 	const [currentCountry, setCurrentCountry] = useState<CountryData>();
 	const [nextCountry, setNextCountry] = useState<CountryData>();
 	const [isCorrect, setIsCorrect] = useState(true);
+	const [score, setScore] = useState(0);
 
 	const getRandomCountry = useCallback(() => {
 		if (!data?.countryData) return;
@@ -58,6 +60,7 @@ export default function HighLowGame() {
 				setCurrentCountry(nextCountry);
 				setNextCountry(getRandomCountry());
 				setIsCorrect(true);
+				setScore(score + 1);
 			} else {
 				// current country is higher than next country INCORRECT GUESS
 				setIsCorrect(false);
@@ -68,6 +71,7 @@ export default function HighLowGame() {
 				setCurrentCountry(nextCountry);
 				setNextCountry(getRandomCountry());
 				setIsCorrect(true);
+				setScore(score + 1);
 			} else {
 				// current country is lower than next country INCORRECT GUESS
 				setIsCorrect(false);
@@ -79,6 +83,7 @@ export default function HighLowGame() {
 		setIsCorrect(true);
 		setCurrentCountry(getRandomCountry());
 		setNextCountry(getRandomCountry());
+		setScore(0);
 	}
 
 	if (isLoading || !nextCountry || !currentCountry)
@@ -187,6 +192,10 @@ export default function HighLowGame() {
 						</div>
 					</div>
 				</motion.div>
+			</div>
+			<div className="flex gap-7 mt-4 justify-between">
+				<BackButton />
+				<div className="mt-3 font-heading text-5xl">{`Score: ${score}`}</div>
 			</div>
 		</>
 	);
