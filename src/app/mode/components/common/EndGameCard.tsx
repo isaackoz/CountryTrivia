@@ -8,7 +8,7 @@ const EndGameCard = ({
 	score: number;
 }) => {
 	return (
-		<div className="h-96 w-96 rounded-sm bg-opacity-50 bg-white">
+		<div className="h-96 w-96 rounded-sm bg-opacity-50 bg-white z-50">
 			<h3 className="text-lg font-extrabold text-center">YOU LOSE!</h3>
 			<p className="text-center">You scored: {score}</p>
 			{/* <div>{children}</div> */}

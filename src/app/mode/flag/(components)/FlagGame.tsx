@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react';
 import { bgColorProps } from '../page';
 import clsx from 'clsx';
 import { CheckCircle2, CheckIcon, XCircle } from 'lucide-react';
+import { useSettingsStore } from '@/store/settingsStore';
+import EndGameCard from '../../components/common/EndGameCard';
+import Modal from 'react-modal';
+import Link from 'next/link';
 
 const FlagGame = ({
 	setBgColor,
@@ -22,6 +26,22 @@ const FlagGame = ({
 	const [score, setScore] = useState(0);
 	const [lives, setLives] = useState(3);
 	const [nextBtnClicked, setNextBtnClicked] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const { isLivesEnabled } = useSettingsStore((state) => {
+		return { isLivesEnabled: state.isLivesEnabled };
+	});
+	const customStyles = {
+		overlay: { backgroundColor: 'rgba(0, 0, 0, 0.6)' },
+		content: {
+			top: '50%',
+			left: '50%',
+			right: 'auto',
+			bottom: 'auto',
+			marginRight: '-50%',
+			transform: 'translate(-50%, -50%)',
+			zIndex: 100000,
+		},
+	};
 
 	useEffect(() => {
 		if (!isLoading && data?.length) {
@@ -90,7 +110,13 @@ const FlagGame = ({
 		} else {
 			setResponse(false);
 			setBgColor('red');
-			setLives(lives - 1);
+			if (isLivesEnabled) {
+				setLives(lives - 1);
+			}
+			if (lives <= 0) {
+				setIsOpen(true);
+				return; // Avoid setting nextButton to visible
+			}
 		}
 		setVisibility(true); // Make next button visible
 	};
@@ -100,6 +126,33 @@ const FlagGame = ({
 
 	return (
 		<div className="flex flex-col mt-10">
+			<Modal
+				isOpen={isOpen}
+				onRequestClose={() => setIsOpen(false)}
+				style={customStyles}
+				ariaHideApp={false}
+			>
+				<EndGameCard score={score} />
+				<div className="flex justify-between z-50">
+					<Link href="/mode">
+						<button
+							onClick={() => setIsOpen(false)}
+							className="text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 hover:cursor-pointer"
+						>
+							Mode Selection
+						</button>
+					</Link>
+					<button
+						onClick={() => {
+							setIsOpen(false);
+							window.location.reload();
+						}}
+						className="text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 hover:cursor-pointer"
+					>
+						Play Again
+					</button>
+				</div>
+			</Modal>
 			<div className="text-4xl font-extrabold text-black">
 				{data?.countryData[correctAnswer].name || 'Error'}?
 			</div>
@@ -122,8 +175,14 @@ const FlagGame = ({
 				<div className="bottom-2 left-2 font-heading text-5xl">
 					{`Score: ${score}`}
 				</div>
-				<div className="bottom-2 font-heading text-5xl">
-					{`Lives: ${lives}`}
+				<div
+					className={clsx(
+						`bottom-2 font-heading text-5xl`,
+						isLivesEnabled ? 'visible' : 'invisible',
+						lives < 0 ? 'text-red-600' : ''
+					)}
+				>
+					{lives >= 0 ? `Lives: ${lives}` : 'LOSE'}
 				</div>
 				<button
 					disabled={isLoading || nextBtnClicked}

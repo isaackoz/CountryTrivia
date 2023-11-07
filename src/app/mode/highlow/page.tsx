@@ -12,9 +12,6 @@ export default function HighLowPage() {
 				<div className="h-[500px] w-full bg-red-200 rounded-xl border-8 border-black">
 					<HighLowGame />
 				</div>
-				<Link href="/mode" className="absolute top-0 left-0">
-					&larr; Back
-				</Link>
 			</div>
 		</HighLowWrapper>
 	);
