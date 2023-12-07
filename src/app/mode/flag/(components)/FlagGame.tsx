@@ -39,7 +39,8 @@ const FlagGame = ({
 			bottom: 'auto',
 			marginRight: '-50%',
 			transform: 'translate(-50%, -50%)',
-			zIndex: 100000,
+			backgroundColor: 'rgb(147,197,253)',
+			border: '2px solid white',
 		},
 	};
 
@@ -133,11 +134,11 @@ const FlagGame = ({
 				ariaHideApp={false}
 			>
 				<EndGameCard score={score} />
-				<div className="flex justify-between z-50">
+				<div className="flex justify-between">
 					<Link href="/mode">
 						<button
 							onClick={() => setIsOpen(false)}
-							className="text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 hover:cursor-pointer"
+							className="text-xl font-bold rounded-lg bg-blue-500 px-4 py-2 hover:cursor-pointer"
 						>
 							Mode Selection
 						</button>
@@ -145,9 +146,11 @@ const FlagGame = ({
 					<button
 						onClick={() => {
 							setIsOpen(false);
-							window.location.reload();
+							refreshQuestion();
+							setScore(0);
+							setLives(3);
 						}}
-						className="text-2xl font-bold rounded-full bg-blue-500 px-2 py-1 hover:cursor-pointer"
+						className="text-xl font-bold rounded-lg bg-blue-500 px-4 py-2 hover:cursor-pointer"
 					>
 						Play Again
 					</button>
