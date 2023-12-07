@@ -9,15 +9,19 @@ import { create } from "zustand"
 interface SettingsState {
     isHard: boolean
     isLivesEnabled: boolean
+    prevSelection: string | undefined // previous random game selection
     toggleDifficulty: (bool: boolean) => void
     toggleLives: (bool: boolean) => void
+    changeSelection: (select: string) => void
 }
 
 export const useSettingsStore = create<SettingsState>()((set)=>({
 	isHard: false,
 	isLivesEnabled: true,
+    prevSelection: undefined,
 
 	toggleDifficulty: (bool: boolean) => set(()=>({isHard: bool})),
-	toggleLives: () => set((state)=>({isLivesEnabled: !state.isLivesEnabled}))
+	toggleLives: () => set((state)=>({isLivesEnabled: !state.isLivesEnabled})),
+    changeSelection: (prevSelection: string) => set(()=>({prevSelection: prevSelection}))
 
 }))

@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -12,6 +13,9 @@ function ModeButton({
 	subtitle: string;
 	href: string;
 }) {
+	if (href == '/mode/random') {
+		href = '/mode/' + selectGame();
+	}
 	return (
 		<Link
 			href={`${href}`}
@@ -31,6 +35,13 @@ function ModeButton({
 			</div>
 		</Link>
 	);
+}
+
+function selectGame() {
+	const selection = ['highlow', 'capital', 'flag'];
+	const gameMode = selection[Math.floor(Math.random() * selection.length)];
+
+	return gameMode;
 }
 
 export default ModeButton;

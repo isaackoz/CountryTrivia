@@ -26,9 +26,9 @@ export default function Home() {
 				/>
 				<ModeButton
 					src="/general_trivia.png"
-					title="General Trivia"
-					subtitle="Guess general trivia about a country"
-					href="/mode/general"
+					title="Random Trivia"
+					subtitle="Play a random game from our selection!"
+					href="/mode/random"
 				/>
 				<ModeButton
 					src="/un_flag.png"
